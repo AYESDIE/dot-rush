@@ -34,9 +34,6 @@ int main() {
 
     population pop(200, goal, width, height, window, obs);
 
-    int x;
-    std::cin >> x;
-
     while (window->isOpen())
     {
         sf::Event event;
@@ -48,7 +45,7 @@ int main() {
 
 
         time = clock.getElapsedTime();
-        if (time.asMilliseconds() >= 20)
+        if (time.asMilliseconds() >= 10)
         {
             window->clear(sf::Color::Black);
 

@@ -22,14 +22,14 @@ void population::draw() {
 }
 
 void population::update() {
-//    for (int i = 0; i < dots.size(); ++i) {
-//        if (dots[i].dotBrain.getStep() > minStep) {
-//            dots[i].isDead = true;
-//        }
-//        else {
-//            dots[i].update();
-//        }
-//    }
+    for (int i = 0; i < dots.size(); ++i) {
+        if (dots[i].dotBrain.getStep() > minStep) {
+            dots[i].isDead = true;
+        }
+        else {
+            dots[i].update();
+        }
+    }
 
     for (int i = 0; i < dots.size(); ++i) {
         dots[i].update();
@@ -56,11 +56,18 @@ void population::naturalSelection() {
     selectBestDot();
     calculateFitnessSum();
 
+    refine.clear();
+
     newDots.push_back(dots[bestDot].gimmeBaby());
     newDots[0].isBest = true;
     for (int i = 1; i < dots.size(); i++) {
         dot parent = selectParent();
         newDots.push_back(parent.gimmeBaby());
+
+        if(!dots[i].isAtGoal)
+        {
+            refine.push_back(i);
+        }
     }
 
     gen++;
@@ -106,7 +113,7 @@ dot population::selectParent() {
 }
 
 void population::mutateDemBabies() {
-    for (int i = 1; i < dots.size(); ++i) {
-        dots[i].dotBrain.mutate();
+    for (int i = 1; i < refine.size(); ++i) {
+        dots[refine[i]].dotBrain.mutate();
     }
 }
