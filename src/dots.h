@@ -23,7 +23,7 @@ private:
     std::vector<obstacle>* obstacles;
 
 public:
-    dot(const std::pair<float, float>& goal, int _width, int _height, sf::RenderWindow* _window);
+    dot(const std::pair<float, float>& goal, int _width, int _height, sf::RenderWindow* _window, std::vector<obstacle>* _obstacles);
 
     void draw();
     void move();

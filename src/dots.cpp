@@ -5,7 +5,8 @@
 #include "dots.h"
 #include <cmath>
 
-dot::dot(const std::pair<float, float>& goal, int _width, int _height, sf::RenderWindow *_window) : goal(goal), width(_width), height(_height) {
+dot::dot(const std::pair<float, float>& goal, int _width, int _height, sf::RenderWindow *_window, std::vector<obstacle>* _obstacles) :
+    goal(goal), width(_width), height(_height) {
     isDead = false;
     isAtGoal = false;
     isBest = false;
@@ -17,6 +18,7 @@ dot::dot(const std::pair<float, float>& goal, int _width, int _height, sf::Rende
     dotBrain = brain(size_t(1000));
 
     window = _window;
+    obstacles = _obstacles;
 }
 
 void dot::draw() {
@@ -67,6 +69,15 @@ void dot::update() {
         {
             isAtGoal = true;
         }
+        else
+        {
+            for (int i = 0; i < obstacles->size(); ++i) {
+                if((*obstacles)[i].isColliding(pos))
+                {
+                    isDead = true;
+                }
+            }
+        }
     }
 }
 
@@ -75,6 +86,11 @@ void dot::calculateFitness() {
     {
         fitness = 1.0/8.0 + 10000.0/(dotBrain.getStep() * dotBrain.getStep());
     }
+//    else if (isBest)
+//    {
+//        double distanceToGoal = std::sqrt(std::pow(pos.first - goal.first, 2) + std::pow(pos.second - goal.second, 2));
+//        fitness = 1.0/(distanceToGoal * distanceToGoal);
+//    }
     else
     {
         double distanceToGoal = std::sqrt(std::pow(pos.first - goal.first, 2) + std::pow(pos.second - goal.second, 2));
@@ -83,7 +99,7 @@ void dot::calculateFitness() {
 }
 
 dot dot::gimmeBaby() {
-    dot baby(goal, width, height, window);
+    dot baby(goal, width, height, window, obstacles);
     baby.dotBrain = dotBrain;
     baby.dotBrain.setStep(0);
     return baby;

@@ -46,7 +46,7 @@ void brain::setStep(int _step) {
 }
 
 void brain::mutate() {
-    float mutationRate = 0.01;
+    float mutationRate = 0.05;
     for (int i = 0; i < directions.size(); ++i) {
         float rng = (float) rand() / RAND_MAX;
         if (rng < mutationRate) {

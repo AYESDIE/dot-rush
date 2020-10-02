@@ -17,7 +17,7 @@ private:
     int minStep;
 
 public:
-    population(size_t size, const std::pair<float, float>& goal, int width, int height, sf::RenderWindow *window);
+    population(size_t size, const std::pair<float, float>& goal, int width, int height, sf::RenderWindow* window, std::vector<obstacle>* _obstacles);
 
     void draw();
     void update();

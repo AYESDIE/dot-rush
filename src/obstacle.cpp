@@ -3,6 +3,7 @@
 //
 
 #include "obstacle.h"
+#include <iostream>
 
 obstacle::obstacle(sf::RenderWindow *window, std::pair<float, float> size, std::pair<float, float> pos) :
     window(window), size(size), pos(pos)
@@ -26,7 +27,7 @@ void obstacle::draw()
 }
 
 bool obstacle::isColliding(std::pair<float, float> loc) {
-    return ((loc.first > pos.first) && (loc.first < (size.first + pos.first))) && ((loc.second > pos.second) && (loc.second < (size.second + loc.second)));
+    return (((loc.first > pos.first) && (loc.first < (size.first + pos.first))) && ((loc.second > pos.second) && (loc.second < (size.second + pos.second))));
 }
 
 

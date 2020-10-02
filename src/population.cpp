@@ -4,14 +4,14 @@
 
 #include "population.h"
 
-population::population(size_t size, const std::pair<float, float>& goal, int width, int height, sf::RenderWindow *window) {
+population::population(size_t size, const std::pair<float, float>& goal, int width, int height, sf::RenderWindow* window, std::vector<obstacle>* obstacles) {
     gen = 1;
     fitnessSum = 0;
     minStep = 1000;
 
     dots.clear();
     for (int i = 0; i < size; ++i) {
-        dots.push_back(dot(goal, width, height, window));
+        dots.push_back(dot(goal, width, height, window, obstacles));
     }
 }
 
