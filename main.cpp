@@ -32,7 +32,7 @@ int main() {
     sf::Clock clock;
     sf::Time time;
 
-    population pop(200, goal, width, height, window, obs);
+    population pop(500, goal, width, height, window, obs);
 
     while (window->isOpen())
     {
